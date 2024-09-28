@@ -1,0 +1,7 @@
+services:
+  server:
+    build:
+      context: .
+      target: final
+    ports:
+      - "32001:32001"
