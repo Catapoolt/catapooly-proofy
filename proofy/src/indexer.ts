@@ -56,7 +56,8 @@ export async function proof_request(): Promise<ProofRequest> {
 
   const txs = await get_collect_transactions_for_wallet("0xc8fB199F3d4F3ebCD112023CEB9536cA12A4D198", 44116540);
 
-  for (const tx of txs) {
+  for (let tx_index = 0; tx_index < txs.length; tx_index++) {
+    const tx = txs[tx_index];
     let transactionData = new TransactionData({
       hash: tx.tx_hash,
       chain_id: 97,
@@ -72,6 +73,7 @@ export async function proof_request(): Promise<ProofRequest> {
     console.log("TransactionData: ", JSON.stringify(transactionData.toObject()));
     proofReq.addTransaction(
       transactionData,
+      tx_index
     );
 
     const smallest_log_offset = Math.min(...tx.log_events.map((log_event) => log_event.log_offset))
@@ -101,7 +103,8 @@ export async function proof_request(): Promise<ProofRequest> {
         });
         console.log("ReceiptData: ", JSON.stringify(receiptData.toObject()));
         proofReq.addReceipt(
-          receiptData
+          receiptData,
+          tx_index
         );
       }
     }
