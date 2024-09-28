@@ -1,4 +1,4 @@
-module account_age
+module circuits
 
 go 1.23.1
 

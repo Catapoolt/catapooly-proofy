@@ -1,4 +1,4 @@
-package main
+package account_age
 
 import (
 	"github.com/brevis-network/brevis-sdk/sdk"

@@ -1,17 +1,18 @@
 package main
 
 import (
+	"github.com/brevis-network/brevis-sdk/sdk/prover"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"os"
 
-	"github.com/brevis-network/brevis-sdk/sdk/prover"
+	"circuits/lp_fees_wBNB"
 )
 
 func main() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 
-	proverService, err := prover.NewService(&LPFeesBNBCakeCircuit{}, prover.ServiceConfig{
+	proverService, err := prover.NewService(&lp_fees_wBNB.LPFeesWBNBCircuit{}, prover.ServiceConfig{
 		SetupDir: "$HOME/circuitOut",
 		SrsDir:   "$HOME/kzgsrs",
 	})

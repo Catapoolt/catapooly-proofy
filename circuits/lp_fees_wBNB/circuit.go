@@ -1,4 +1,4 @@
-package main
+package lp_fees_wBNB
 
 import (
 	"fmt"
@@ -7,11 +7,11 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 )
 
-type LPFeesBNBCakeCircuit struct{}
+type LPFeesWBNBCircuit struct{}
 
-var _ sdk.AppCircuit = &LPFeesBNBCakeCircuit{}
+var _ sdk.AppCircuit = &LPFeesWBNBCircuit{}
 
-func (c *LPFeesBNBCakeCircuit) Allocate() (maxReceipts, maxStorage, maxTransactions int) {
+func (c *LPFeesWBNBCircuit) Allocate() (maxReceipts, maxStorage, maxTransactions int) {
 	// Receipts and Transactions need to be equal
 	return 10, 0, 10
 }
@@ -50,11 +50,17 @@ func (c CollectedFee) String() string {
 
 var _ sdk.CircuitVariable = CollectedFee{}
 
-var zero sdk.Uint248 = sdk.ConstUint248(0)
+var zero = sdk.ConstUint248(0)
 var wBNB = sdk.ConstUint248(common.HexToAddress("0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"))
 
-func (c *LPFeesBNBCakeCircuit) Define(api *sdk.CircuitAPI, in sdk.DataInput) error {
+func (c *LPFeesWBNBCircuit) Define(api *sdk.CircuitAPI, in sdk.DataInput) error {
 	txs := sdk.NewDataStream(api, in.Transactions)
+	rxs := sdk.NewDataStream(api, in.Receipts)
+
+	fmt.Print("Transactions: ")
+	fmt.Println(sdk.Count(txs))
+	fmt.Print("Receipts: ")
+	fmt.Println(sdk.Count(rxs))
 
 	walletFees := sdk.ZipMap2(txs, in.Receipts.Raw, func(a sdk.Transaction, b sdk.Receipt) CollectedFee {
 		// assert event id: "0x40d0efd1a53d60ecbf40971b9daf7dc90178c3aadc7aab1765632738fa8b8f01"
