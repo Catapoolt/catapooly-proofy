@@ -6,7 +6,7 @@ async function main() {
   const brevis = new Brevis('appsdkv2.brevis.network:9094');
 
   const apiKey = "TEST_ACCOUNT_AGE_KEY"
-  const callbackAddress = "0x56927b4e3B839B5C3c5b568BDb88de1Bb237591F"
+  const callbackAddress = "0x075A43436D0F6460dD4A40ea8C67D7165C621A2E"
 
   const proofReq = await proof_request()
 
@@ -31,14 +31,14 @@ async function main() {
   }
   console.log('proof', proofRes.proof);
 
-  // try {
-  //   const brevisRes = await brevis.submit(proofReq, proofRes, 97, 97, 0, apiKey, callbackAddress);
-  //   console.log('brevis res', brevisRes);
-  //
-  //   await brevis.wait(brevisRes.queryKey, 97);
-  // } catch (err) {
-  //   console.error(err);
-  // }
+  try {
+    const brevisRes = await brevis.submit(proofReq, proofRes, 97, 97, 0, apiKey, callbackAddress);
+    console.log('brevis res', brevisRes);
+
+    await brevis.wait(brevisRes.queryKey, 97);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 main().then(() => console.log("Finished main!"));
