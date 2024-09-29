@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Catapoolt Brevis integration",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node lp_fees_wBNB/index.ts"
   },
   "author": "Mihai A.",
   "license": "MIT",

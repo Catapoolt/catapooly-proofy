@@ -1,18 +1,17 @@
 package main
 
 import (
+	"circuits/wallet_out_Cake"
 	"github.com/brevis-network/brevis-sdk/sdk/prover"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"os"
-
-	"circuits/lp_fees_wBNB"
 )
 
 func main() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 
-	proverService, err := prover.NewService(&lp_fees_wBNB.LPFeesWBNBCircuit{}, prover.ServiceConfig{
+	proverService, err := prover.NewService(&wallet_out_Cake.WalletOutCakeCircuit{}, prover.ServiceConfig{
 		SetupDir: "$HOME/circuitOut",
 		SrsDir:   "$HOME/kzgsrs",
 	})
