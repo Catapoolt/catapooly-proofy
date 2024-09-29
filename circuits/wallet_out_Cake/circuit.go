@@ -3,43 +3,8 @@ package wallet_out_Cake
 import (
 	"fmt"
 	"github.com/brevis-network/brevis-sdk/sdk"
-	"github.com/consensys/gnark/frontend"
 	"github.com/ethereum/go-ethereum/common"
 )
-
-type CakeFromWallet struct {
-	walletId sdk.Uint248
-	amount   sdk.Uint248
-}
-
-func (c CakeFromWallet) Values() []frontend.Variable {
-	var ret []frontend.Variable
-	ret = append(ret, c.walletId.Values()...)
-	ret = append(ret, c.amount.Values()...)
-	return ret
-}
-
-func (c CakeFromWallet) FromValues(vs ...frontend.Variable) sdk.CircuitVariable {
-	nf := CakeFromWallet{}
-
-	start, end := uint32(0), c.walletId.NumVars()
-	nf.walletId = c.walletId.FromValues(vs[start:end]...).(sdk.Uint248)
-
-	start, end = end, end+c.amount.NumVars()
-	nf.amount = c.amount.FromValues(vs[start:end]...).(sdk.Uint248)
-
-	return nf
-}
-
-func (c CakeFromWallet) NumVars() uint32 {
-	return c.walletId.NumVars() + c.amount.NumVars()
-}
-
-func (c CakeFromWallet) String() string {
-	return ""
-}
-
-var _ sdk.CircuitVariable = CakeFromWallet{}
 
 type WalletOutCakeCircuit struct{}
 
